@@ -1,0 +1,84 @@
+*********************************************
+
+MAGYAR MIRROR BEÁLLÍTÁSA
+
+sudo reflector -c "Hungary" -f 12 -l 10 -n 12 --save /etc/pacman.d/mirrorlist
+
+*********************************************
+
+SWAP FILE KÉSZÍTÉSE
+
+cd /
+sudo dd if=/dev/zero of=/swapfile count=2048 bs=1MiB
+sudo chmod 600 swapfile
+sudo mkswap swapfile
+sudo swapon swapfile
+
+mcedit /etc/fstab (alábbi sort bemásolni)
+/swapfile none swap defaults 0 0
+
+*********************************************
+
+FSTAB Temp fájlok a ramba, cache a ramba!
+
+Preview Cache and TMP To Ram
+
+tmpfs   /tmp   tmpfs   defaults,noatime,mode=1777   0  0
+
+tmpfs /home/FELHASZNÁLÓNÉV/.cache/thumbnails tmpfs noatime,nodiratime,nodev,nosuid,uid=1000,gid=100,mode=0700,size=256M 0 0
+
+#CSAK KDE-nél
+#tmpfs /home/FELHASZNÁLÓNÉV/.thumbnails/ tmpfs noatime,nodiratime,nodev,nosuid,uid=1000,gid=100,mode=0700,size=128M 0 0
+*********************************************
+
+VM.SWAPPINESS
+
+mcedit /etc/sysctl.d/99-sysctl.conf
+
+vm.swappiness=10
+
+*********************************************
+Nvidia Hűtő fordulat kézi állítása
+
+Az xorg.conf-ban, a DEVICE résznél hozzáadni
+
+Option "Coolbits" "4"
+
+*********************************************
+
+ARCH PC SPEAKER KUSS
+
+mcedit /etc/modprobe.d/nobeep.conf
+
+blacklist pcspkr
+
+*********************************************
+
+sudo pacman -Rns $(pacman -Qtdq)
+
+*********************************************
+
+DÁTUM
+
+
+%Y.%m.%d. ( %A ) - %H:%M
+
+*********************************************
+
+CS:GO - Options
+
+-novid -no-browser -nojoy -tickrate 128
+
+********************************************
+
+Firefox Cache áthelyezés HDD-re, SSD élettartam
+megóvás céljából.
+
+about:config
+új->string browser.cache.disk.parent_directory
+.ffx_cache
+*********************************************
+
+YAY SKIP INTEGRITY CHECK
+
+yay -S  --mflags --skipinteg

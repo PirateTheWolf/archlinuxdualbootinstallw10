@@ -1,0 +1,10 @@
+### YAY AUR Helper telepítése
+
+sudo mcedit /etc/pacman.conf
+
+# Misc options
+Color (hashtaget kivenni)
+
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si

@@ -1,0 +1,229 @@
+###################################################
+###						###
+###	Vanilla Arch Telepítő útmutató v2.0	###
+###			EFI			###
+################################################### 
+
+## Magyar billentyűzet
+
+	loadkeys hu
+	## loadkeys uk ##
+
+## Wifi Beallitasa (opcionális)
+
+	iwctl
+	#interaktiv prompt
+		device list
+		station wlan0 scan
+		station wlan0 get-networks
+		station wlan0 connect TE_HALOZATOD
+		exit
+		
+## Szinkronizálás távoli idő kiszolgálóval
+
+	timedatectl set-ntp true
+
+## Partícionálás
+
+	cfdisk (több lemez esetén cfdisk /dev/sdXXX (XXX == ROOT lemez))
+
+## EFI partíció formázása FAT32-re
+
+	mkfs.fat -F32 /dev/sdaXX (EFI 100MB)
+
+## ROOT partíció formázása ext4-re
+
+	mkfs.ext4 /dev/sdaXX (ROOT)
+
+## GYÖKÉR Csatolása
+
+	mount /dev/sdaXX (ROOT) /mnt
+
+## EFI könyvtár szerkezet létrehozása
+
+	mkdir /mnt/boot
+	mkdir /mnt/boot/efi
+
+## EFI csatolása
+
+	mount /dev/sdaXX (EFI) /mnt/boot/efi
+
+--->> ### További mountok és könyvtárlétrehozások itt! ### << ---
+    
+	## példa egy NTFS Windows és egy EXT4 BACKUP partició hozzáadására
+
+	mkdir /mnt/mnt/WINDOWS ## ntfs-3g kelleni fog később ha NTFS a partició!
+	mkdir /mnt/mnt/BACKUP
+	
+	chmod 777 /mnt/mnt/WINDOWS
+	chmod 777 /mnt/mnt/BACKUP
+
+	mount /dev/sdXXX /mnt/mnt/WINDOWS
+	mount /dev/sdaXX /mnt/mnt/BACKUP
+
+### Külön HOME könyvtár létrehozása, formázása, csatolása
+	
+	mkdir /mnt/home
+	mkfs.ext4 /dev/xxx (HOME)
+	mount /dev/xxx /mnt/home
+
+### MIRROR beállítása (opcionális)
+
+	nano /etc/pacman.d/mirrorlist
+
+### TELEPÍTÉS (alap rendszer + pár hasznos dolog)
+
+	pacstrap /mnt base base-devel linux linux-firmware linux-headers nano mc bash-completion gvfs ntfs-3g git
+
+### FSTAB generálás
+
+	genfstab -U /mnt >> /mnt/etc/fstab
+
+### TELEPÍTETT rendszer átvétele
+
+	arch-chroot /mnt
+
+### HELYI időzóna beállítása
+
+	ln -sf /usr/share/zoneinfo/Europe/Budapest /etc/localtime
+
+### RENDSZER idő -> a hardver órába!
+
+	hwclock --systohc
+
+### LOCALE generálás (en_US steamhez kötelező!)
+
+	nano /etc/locale.gen
+	hu_HU.UTF-8
+	en_US.UTF-8
+
+	locale-gen
+
+### MAGYAR lokális formátumok beállítása
+
+	nano /etc/locale.conf
+	LANG=hu_HU.UTF-8
+	LC_TIME=hu_HU.UTF-8
+
+### MAGYAR Paranccsori billentyűkiosztás
+
+	nano /etc/vconsole.conf
+	KEYMAP=hu
+	## KEYMAP=uk ##
+	FONT=lat2-16
+	FONT_MAP=8859-2
+
+### HOSTNÉV beállítása
+
+	echo Gépneved > /etc/hostname
+
+### HOST fájl beállítása
+
+	nano /etc/hosts
+
+	127.0.0.1	localhost
+	::1			localhost
+	127.0.1.1	Gépnéved.localdomain	Gépnéved
+
+### NETWORK manager telepítése  Hálozazati eszköz telepítés
+
+	pacman -S networkmanager network-manager-applet
+
+### NETWORK manager engedélyezése  Hálozazati eszköz engedélyezése rendszer induláskor
+
+	systemctl enable NetworkManager
+
+### ROOT jelszó létrehozása         Főadmin jelszó megadása (legalláb 14 karakter)
+	
+	passwd
+
+### RENDSZERBETÖLTŐ telepítése (EFI MÓD)
+
+	pacman -S grub efibootmgr os-prober
+
+	grub-install --target=x86_64-efi --efi-directory=/boot/efi
+
+	grub-mkconfig -o /boot/grub/grub.cfg
+
+### KILÉPÉS és újraindítás
+	
+	exit
+	umount -R /mnt
+	reboot
+
+### WIFI beállítása (opcionális)   Csak akkor foglakoz vele ha nem kábelel vagy csatalakozva. 
+
+	nmcli device wifi list
+	nmcli device wifi connect A_TE_HALOZATOD password A_TE_JELSZAVAD
+
+### MULTILIB bekapcsolása
+
+	nano /etc/pacman.conf
+
+	[multilib]
+	include = /etc/pacman.d/mirrorlist
+
+### FRISSÍTÉS (ellenőrizni a multilib letöltődését)
+
+	pacman -Syu
+
+### SAJÁT felhasználó hozzáadása
+
+	useradd -m -g users -G audio,video,network,wheel,storage,rfkill -s /bin/bash FELHASZNÁLÓNÉVED
+
+### JELSZÓ létrehozása a felhasználódhoz
+
+	passwd FELHASZNÁLÓNÉVED
+
+### SUDO bekapcsolása a felhasználóhoz.
+
+	EDITOR=nano visudo
+
+	#%wheel ALL=(ALL) ALL (hastaget vedki elsóle)
+
+### KILÉPÉS, és felhasználóval történő bejelentkezés
+
+exit
+
+### XORG letöltése
+
+sudo pacman -S xorg-server xorg-appres xorg-xinit xterm
+
+### BEJELENTKEZÉS KEZELŐ letöltése és engedélyezése
+
+	sudo pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings
+	sudo systemctl enable lightdm.service -f
+	sudo systemctl set-default graphical.target
+
+*******************************************************
+
+NE INDÍTSD ÚJRA AMÍG NINCS TELEPÍTETT ASZTAL!
+NE INDÍTSD ÚJRA AMÍG NINCS TELEPÍTETT ASZTAL!
+NE INDÍTSD ÚJRA AMÍG NINCS TELEPÍTETT ASZTAL!
+
+*******************************************************
+### MAGYAR billentyű az Xorg-hoz + CTRL+ALT+BACKSPACE X resethez
+
+nano /etc/X11/xorg.conf.d/00-keyboard.conf
+
+Section "InputClass"
+	Identifier "keyboard"
+	MatchIsKeyboard "yes"
+	Option "XkbLayout" "hu"
+	Option "XkbVariant" "nodeadkeys"
+	Option "XkbOptions" "terminate:ctrl_alt_bksp"
+EndSection
+
+*******************************************************
+
+### XFCE asztal telepítés
+
+	sudo pacman -S xfce4 xfce4-goodies
+
+### CINNAMON asztal telepítés
+
+	sudo pacman -S cinnamon cinnamon-translations
+
+### KDE telepítés
+
+	sudo pacman -S plasma-meta kde-applications-meta

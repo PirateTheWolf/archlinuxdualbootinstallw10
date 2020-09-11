@@ -1,0 +1,35 @@
+00 - vanilla_arch_install.txt
+
+- Hozzáadva a külön /home csatolása telepítésnél.
+- Hozzáadva formázás, és funkció leírások #-el.
+- Hozzáadva ntfs-3g, gvfs, bash-completion, mc, git, linux-headers a pacstrap részhez.
+- Hozzáadva loadkeys, és vconsole.conf (uk opció).
+- Módosítva useradd résznél a csoport neve azonos a felhasználónévvel.
+- Módosítva hostname, és hosts fájl tartalma.
+- Telepítés előtti, és utáni Wifi beállítás hozzáadva (cubixx) - 2020.08.27.
+
+02-program_install.sh
+
+- Módosítva Saját programok listája. Elavult csomagok eltávolítva.
+- Módosítva Saját programok listája. Egy sor helyett minden külön sorba került a könnyebb törlés/hozzáadás miatt.
+- Módosítva Alapértelmezetten AMD ucode települ! Az Intelt egyénileg kell bekapcsolni!
+
+03-yay-aur_helper-install.txt
+
+- Módosítva Git-es telepítés, és csomagkészítés a yay AUR helperből.
+- Módosítva Színezett kimenet bekapcsolása.
+
+04-aur_program_install.sh
+
+- Módosítva python2-gimp csomag hozzáadva a GIMP régi pluginjainak kezelése miatt.
+
+05-nvidia_steam.sh
+
+- Módosítva a steam csomag mellé bekerült a steam-native-runtime metacsomag is, ami további függőségeket telepít.
+
+99-TELEPÍTÉS_UTÁNI_BEÁLLÍTÁSOK.TXT
+
+- Módosítva Formázás
+- Módosítva Elavult programok eltávolítva
+
+00-keyboard.conf beállítófájl hozzáadva
