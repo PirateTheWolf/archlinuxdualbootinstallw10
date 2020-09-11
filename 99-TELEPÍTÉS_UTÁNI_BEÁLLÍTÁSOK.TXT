@@ -14,7 +14,7 @@ sudo chmod 600 swapfile
 sudo mkswap swapfile
 sudo swapon swapfile
 
-mcedit /etc/fstab (alábbi sort bemásolni)
+nano /etc/fstab (alábbi sort bemásolni)
 /swapfile none swap defaults 0 0
 
 *********************************************
@@ -25,20 +25,21 @@ Preview Cache and TMP To Ram
 
 tmpfs   /tmp   tmpfs   defaults,noatime,mode=1777   0  0
 
-tmpfs /home/FELHASZNÁLÓNÉV/.cache/thumbnails tmpfs noatime,nodiratime,nodev,nosuid,uid=1000,gid=100,mode=0700,size=256M 0 0
+tmpfs /home/FELHASZNÁLÓNEVED/.cache/thumbnails tmpfs noatime,nodiratime,nodev,nosuid,uid=1000,gid=100,mode=0700,size=256M 0 0
 
 #CSAK KDE-nél
-#tmpfs /home/FELHASZNÁLÓNÉV/.thumbnails/ tmpfs noatime,nodiratime,nodev,nosuid,uid=1000,gid=100,mode=0700,size=128M 0 0
+#tmpfs /home/FELHASZNÁLÓNEVED/.thumbnails/ tmpfs noatime,nodiratime,nodev,nosuid,uid=1000,gid=100,mode=0700,size=128M 0 0
 *********************************************
+#swap használatának beállítása
 
-VM.SWAPPINESS
-
-mcedit /etc/sysctl.d/99-sysctl.conf
+nano /etc/sysctl.d/99-sysctl.conf
 
 vm.swappiness=10
 
 *********************************************
 Nvidia Hűtő fordulat kézi állítása
+
+#csak akkor ha kézell szertnéd szabályozni 
 
 Az xorg.conf-ban, a DEVICE résznél hozzáadni
 
@@ -53,6 +54,7 @@ mcedit /etc/modprobe.d/nobeep.conf
 blacklist pcspkr
 
 *********************************************
+Ez a parancs a felesleges csomagokat tölrli a gépról.
 
 sudo pacman -Rns $(pacman -Qtdq)
 
