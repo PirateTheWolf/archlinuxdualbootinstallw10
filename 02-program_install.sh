@@ -23,7 +23,7 @@ echo "################################################################"
 echo "#########       Hangrendszer telepítve          ################"
 echo "################################################################"
 
-# BLUETOOTH (if needed)
+# BLUETOOTH (Ha kell)
 
 #sudo pacman -S --noconfirm --needed pulseaudio-bluetooth
 #sudo pacman -S --noconfirm --needed bluez
@@ -45,11 +45,11 @@ echo "################################################################"
 #echo "###################    T H E   E N D      ######################"
 #echo "################################################################"
 
-# PRINTER
+# PRINTER (nyomtató ha kell akkor # kivennin)
 
 #sudo pacman -S --noconfirm --needed cups cups-pdf
 
-#first try if you can print without foomatic
+#first try if you can print without foomatic  ez elől ne ved ki)
 #sudo pacman -S foomatic-db-engine --noconfirm --needed
 #sudo pacman -S foomatic-db foomatic-db-ppds foomatic-db-nonfree-ppds foomatic-db-gutenprint-ppds --noconfirm --needed
 #sudo pacman -S ghostscript gsfonts gutenprint --noconfirm --needed
@@ -66,7 +66,7 @@ echo "################################################################"
 #echo "#########   printer management software installed     ##########"
 #echo "################################################################"
 
-# SAMBA
+# SAMBA (hálozati megosztás ha csak egy géped van akkor nem kell # kivenni)
 
 #sudo pacman -S --noconfirm --needed samba
 #sudo wget "https://git.samba.org/samba.git/?p=samba.git;a=blob_plain;f=examples/smb.conf.default;hb=HEAD" -O /etc/samba/smb.conf.original
@@ -77,7 +77,7 @@ echo "################################################################"
 #sudo systemctl enable nmb.service
 #sudo systemctl start nmb.service
 
-##Change your username here
+##Change your username here  ne vedd ki a #-et
 #read -p "What is your login? It will be used to add this user to smb : " choice
 #sudo smbpasswd -a $choice
 
@@ -88,7 +88,7 @@ echo "################################################################"
 #echo "#########   samba  software installed           ################"
 #echo "################################################################"
 
-# NETWORK DISCOVERY
+# NETWORK DISCOVERY (ha használsz sambat akkor kell vagy van otthon nasod akkor is kell. #-et kivenni)
 
 #sudo pacman -S --noconfirm --needed avahi
 #sudo systemctl enable avahi-daemon.service
@@ -105,7 +105,7 @@ echo "################################################################"
 #echo "####       network discovery  software installed        ########"
 #echo "################################################################"
 
-# TLP FOR LAPTOPS
+# TLP FOR LAPTOPS  (ha laptopotra telepíteted akkor kell)
 
 #sudo pacman -S --noconfirm --needed tlp
 #sudo systemctl enable tlp.service
