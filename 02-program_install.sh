@@ -184,10 +184,11 @@ sudo pacman -S ttf-ubuntu-font-family --noconfirm --needed
 sudo pacman -S tamsyn-font --noconfirm --needed
 sudo pacman -S noto-fonts-emoji --noconfirm --needed
 
-# INTEL / AMD UCODE
+# INTEL / AMD UCODE     Vagy az intel-ucode vagy az amd-ucode kötöl azt válaszd ki amilyen procid van.
+#   
 
 #sudo pacman -S intel-ucode --noconfirm
-sudo pacman -S amd-ucode --noconfirm
+#sudo pacman -S amd-ucode --noconfirm
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 
 # SZEMÉLYES PROGRAMOK
