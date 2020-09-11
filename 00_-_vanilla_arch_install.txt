@@ -4,19 +4,25 @@
 ###			EFI			###
 ################################################### 
 
+## Első lépés csatlakoz az internethez ha kábeltucc akkor csatlakoztasd ha nem akkor haldj tovább a billenytűzet beállításaval.
+
 ## Magyar billentyűzet
 
 	loadkeys hu
 	## loadkeys uk ##
 
-## Wifi Beallitasa (opcionális)
+## Wifi Beallitasa (opcionális)    Csak akkor használd ha laptopod van és nem megoldható hogy kábelel csatlakoz az internethez.
+
+     #nézd emg a Hálozazati kártyád nevét
+	 		iwconfig
+	# ha w-vel kezdőd keres az a wifi kártyád neve
 
 	iwctl
 	#interaktiv prompt
 		device list
-		station wlan0 scan
-		station wlan0 get-networks
-		station wlan0 connect TE_HALOZATOD
+		station wifi_kártyád_neve scan	
+		station wifi_kártyád_neve get-networks
+		station wifi_kártyád_neve connect TE_HALOZATOD_NEVE
 		exit
 		
 ## Szinkronizálás távoli idő kiszolgálóval
