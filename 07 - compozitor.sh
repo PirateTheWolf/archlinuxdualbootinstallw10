@@ -5,6 +5,8 @@ set -e
 ###		xcompmgr / gcompmgr			 ###
 ############################################################
 
+#Ez csak akkor kell ha xfce4-et telepítetel asztali környezetnek!
+
 ## Alapértelmezett compozitort kikapcsolni!
 ## Beállítások -> Ablakkezelő hangolása -> Kompozitálás
 
