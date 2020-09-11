@@ -29,7 +29,7 @@
 
 	timedatectl set-ntp true
 
-## Partícionálás
+## Partícionálás   Légy tisztába hogy mennyi lemezetd van és azokon milyen particiód van.
 
 	cfdisk (több lemez esetén cfdisk /dev/sdXXX (XXX == ROOT lemez))
 
@@ -67,7 +67,7 @@
 	mount /dev/sdXXX /mnt/mnt/WINDOWS
 	mount /dev/sdaXX /mnt/mnt/BACKUP
 
-### Külön HOME könyvtár létrehozása, formázása, csatolása
+### Külön HOME könyvtár létrehozása, formázása, csatolása  nem kötelező!
 	
 	mkdir /mnt/home
 	mkfs.ext4 /dev/xxx (HOME)
@@ -162,7 +162,7 @@
 	nmcli device wifi list
 	nmcli device wifi connect A_TE_HALOZATOD password A_TE_JELSZAVAD
 
-### MULTILIB bekapcsolása
+### MULTILIB bekapcsolása 		Ez fontos ne had ki!
 
 	nano /etc/pacman.conf
 
@@ -175,23 +175,23 @@
 
 ### SAJÁT felhasználó hozzáadása
 
-	useradd -m -g users -G audio,video,network,wheel,storage,rfkill -s /bin/bash FELHASZNÁLÓNÉVED
+	useradd -m -g users -G audio,video,network,wheel,storage,rfkill -s /bin/bash FELHASZNÁLÓNEVED
 
 ### JELSZÓ létrehozása a felhasználódhoz
 
-	passwd FELHASZNÁLÓNÉVED
+	passwd FELHASZNÁLÓNEVED      minumum 8 karakter!
 
 ### SUDO bekapcsolása a felhasználóhoz.
 
 	EDITOR=nano visudo
 
-	#%wheel ALL=(ALL) ALL (hastaget vedki elsóle)
+	#%wheel ALL=(ALL) ALL (hastaget vedki előle)
 
 ### KILÉPÉS, és felhasználóval történő bejelentkezés
 
 exit
 
-### XORG letöltése
+### XORG letöltése     Grapikus megjelenítő telepítése
 
 sudo pacman -S xorg-server xorg-appres xorg-xinit xterm
 
@@ -209,6 +209,11 @@ NE INDÍTSD ÚJRA AMÍG NINCS TELEPÍTETT ASZTAL!
 
 *******************************************************
 ### MAGYAR billentyű az Xorg-hoz + CTRL+ALT+BACKSPACE X resethez
+
+Ez fent van a tárólóba csak tölsdte és másold be ezeket a parancsokat
+git clone https://github.com/PirateTheWolf/vanilliaarchinstall
+cd vanilliaarchinstall/
+sudo cp 00-keyboard.conf /etc/X11/xorg.conf.d/00-keyboard.conf
 
 nano /etc/X11/xorg.conf.d/00-keyboard.conf
 
