@@ -1,7 +1,7 @@
 ###################################################
-###						###
-###	Vanilla Arch Telepítő útmutató v2.0	###
-###			EFI			###
+###						###                    	###
+###	    Vanilla Arch Telepítő útmutató v2.0     ### 
+###			EFI MÓD		###                     ###
 ################################################### 
 
 ## Első lépés csatlakoz az internethez ha kábeltucc akkor csatlakoztasd ha nem akkor haldj tovább a billenytűzet beállításaval.
